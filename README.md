@@ -1,8 +1,28 @@
-# React + Vite
+# App de sudoku con generator y solver
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web que permite jugar al sudoku, generar tableros de sudoku y resolver tableros de sudoku.
 
-Currently, two official plugins are available:
+## Instalación
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Para instalar la aplicación, primero clona el repositorio:
+
+
+```bash
+git clone https://github.com/IvanTicona/Sudoku-Algorithm.git
+```
+
+Luego, instala las dependencias:
+
+```bash
+yarn install
+```
+
+## Uso
+
+Para iniciar la aplicación, ejecuta:
+
+```bash
+yarn dev
+```
+
+Luego, abre tu navegador y navega a `http://localhost:5173`.
