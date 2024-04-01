@@ -1,23 +1,22 @@
 /* eslint-disable no-unused-vars */
-import generateSudoku from "./Sudoku";
-
+import sudoku from "./Sudoku";
 
 export const Table = () => {
-  const tamanio = [0,1,2,3,4,5,6,7,8];
-
-  const {sudoku} = generateSudoku();
+  const nxm = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
     <div className="sudoku">
-      {tamanio.map((row) => {
+      {nxm.map((row) => {
         return (
           <div key={row * 3} className="row">
-            {tamanio.map((col) => {
-              return (
+            {nxm.map((col) => {
+              return sudoku[row][col] != "" ? (
                 <span key={col * 4} className="col">
-                  {
-                    sudoku[row][col]
-                  }
+                  {sudoku[row][col]}
+                </span>
+              ) : (
+                <span key={col * 4} className="col">
+                  <input className="cell" type="text" />
                 </span>
               );
             })}

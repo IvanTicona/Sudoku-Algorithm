@@ -1,99 +1,111 @@
-let sudoku = [
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0]];
+/* eslint-disable no-unused-vars */
 
-const checkRows = (mat) => {
-  for (let h = 0; h < mat.length; h++) {
-    for (let i = 0; i < mat.length; i++) {
-      let num = mat[i] //tomamos el numero para buscar su repeticion
-      for(let j = i+1; j < mat.length; j++){
-        if(num == mat[j]){ //buscamos la posicion donde se repite
-          // i(index que usamos) j(donde se repite)
-          mat[j] = '';
-          // break, usariamos para solo buscar una repeticion
-        }
+//Generar un array con valores del 1-9 en orden aleatorio
+const getArray = () => {
+  let arr = [];
+  while (arr.length < 9) {
+    const rand = Math.floor(Math.random() * 9) + 1;
+    if (!arr.includes(rand)) {
+      arr.push(rand);
+    }
+  }
+
+  return arr;
+};
+
+//Generar el sudoku
+
+function generarSudoku() {
+  const board = Array.from({ length: 9 }, () =>
+    Array.from({ length: 9 }, () => 0)
+  );
+  generarSolucion(board);
+  removerCeldas(board, 40); // numero de celdas para borrar
+  return board;
+}
+
+// Buscar solucion
+function generarSolucion(board) {
+  if (solveSudoku(board)) {
+    return true; //  resuelto
+  }
+  return false; // sin solución
+}
+
+function solveSudoku(board) {
+  const empty = findEmptyCell(board);
+  if (!empty) {
+    return true;
+  }
+
+  const [row, col] = empty;
+  const arr = getArray();
+  for (let num = 1; num <= 9; num++) {
+    if (isValid(board, row, col, arr[num-1])) {
+      board[row][col] = arr[num-1];
+      if (solveSudoku(board)) {
+        return true;
+      }
+      board[row][col] = 0; // borrar si no si cumple regla
+    }
+  }
+  return false;
+}
+
+// encontrar una casilla vacia
+function findEmptyCell(board) {
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (board[row][col] === 0) {
+        return [row, col];
       }
     }
   }
-};
+  return null; // No hay celdas vacías
+}
 
-const invMat = ( mat ) => {
-  let aux=[ //matriz auxiliar que sea la transpuesta
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0]];
-
-  for (let i = 0; i < mat.length; i++) {
-    for (let j = 0; j < mat.length; j++){
-      aux[i][j] = mat[j][i] //tranponemos los elementos de la matriz
+// verificar numero en cierta posicion
+function isValid(board, row, col, num) {
+  // ver fila y columna
+  for (let i = 0; i < 9; i++) {
+    if (board[row][i] === num || board[i][col] === num) {
+      return false;
     }
   }
-  return aux;
-};
-
-const check3x3s = (mat) => {
-  for(let j=0; j<9;j+=3){ // j es la fila
-    for(let k=0; k<9;k+=3){ //k es columna
-      let aux=[];
-      for(let i=j; i<j+3;i++){ // hasta 3 porque son las 3 primera filas
-        for(let h=k; h<k+3;h++){ //h incrementa de a 3 para cambiar de cuadrante
-          aux.push(mat[i][h])
-        }
-      }
-      checkRows(aux) //Corregimos el vector aux (el primer cuadrante)
-      let count = 0 //variable recorrer el vector
-      for(let i=j; i<j+3;i++){
-        for(let h=k; h<k+3;h++){
-          mat[i][h] = aux[count]
-          count++
-        }
+  // ver 3x3
+  const startRow = Math.floor(row / 3) * 3;
+  const startCol = Math.floor(col / 3) * 3;
+  for (let i = startRow; i < startRow + 3; i++) {
+    for (let j = startCol; j < startCol + 3; j++) {
+      if (board[i][j] === num) {
+        return false;
       }
     }
   }
-};
+  return true;
+}
 
-const fillSudoku = () => {
-
-  //Llenamos la matriz de numeros random
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++){
-      const rand = Math.floor(Math.random()*9)+1
-      sudoku[i][j] = rand;
+// borrar numeros de la tabla
+function removerCeldas(board, numToRemove) {
+  let removed = 0;
+  while (removed < numToRemove) {
+    const row = Math.floor(Math.random() * 9);
+    const col = Math.floor(Math.random() * 9);
+    if (board[row][col] !== 0) {
+      const original = board[row][col];
+      board[row][col] = 0;
+      const clonedBoard = board.map((row) => row.slice());
+      const solutions = [];
+      if (solveSudoku(clonedBoard)) {
+        removed++;
+      } else {
+        board[row][col] = original;
+      }
     }
   }
+}
 
-  check3x3s(sudoku); // 3x3s ✅
+const sudoku = generarSudoku();
+// console.log(sudoku);
 
-  //Corregimos las filas
-  for (let i = 0; i < 9; i++) {
-    checkRows(sudoku[i]);
-  } // 3x3s ✅
-
-  //Transponemos
-  sudoku = invMat(sudoku);
-  //Y corregimos las filas(excolumnas)
-  for (let i = 0; i < 9; i++) {
-    checkRows(sudoku[i]);
-  } // 3x3s ✅
-  sudoku = invMat(sudoku);
-};
-
-const generateSudoku = () => {
-  fillSudoku();
-  return {sudoku};
-};
-
-export default generateSudoku;
+export default sudoku;

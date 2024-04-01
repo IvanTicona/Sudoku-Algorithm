@@ -1,5 +1,5 @@
 body {
-  background-color: grey;
+  background-color: rgb(160, 160, 160);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -13,9 +13,13 @@ body {
   background: #000;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 5px solid black;
 }
 
 .col{
+  background:rgba(128, 170, 126, 0.459);
   height: 80px;
   width: 80px;
   color: black;
@@ -28,9 +32,36 @@ body {
 
 .row{
   height: 80px;
-  background-color: white;
-  font-size: 2rem;
+  background-color:rgb(240, 240, 240);
   display: flex;
   justify-content: center;
   border: 1px solid black;
+}
+
+.col-empty{
+  background-color: transparent;
+  height: 80px;
+  width: 80px;
+  color: black;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+border: 1px solid black;
+}
+
+.cell{
+  background-color: transparent;
+  height: 75px;
+  width: 75px;
+  text-align: center;
+  font-size: 2rem;
+  border: none;
+  outline: none;
+  caret-color: transparent;
+  cursor: pointer;
+}
+
+.col-empty:focus-within {
+  background-color: rgba(0, 129, 176, 0.3);
 }
