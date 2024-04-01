@@ -10,12 +10,12 @@ export const Table = () => {
         return (
           <div key={row * 3} className="row">
             {nxm.map((col) => {
-              return sudoku[row][col] != "" ? (
+              return sudoku[row][col] != 0 ? (
                 <span key={col * 4} className="col">
                   {sudoku[row][col]}
                 </span>
               ) : (
-                <span key={col * 4} className="col">
+                <span key={col * 4} className="col-empty">
                   <input className="cell" type="text" />
                 </span>
               );
