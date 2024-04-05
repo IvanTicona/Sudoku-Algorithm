@@ -79,11 +79,11 @@ body {
 }
 
 .col-empty:nth-child(3){
-  border-right: 3px solid blue;
+  border-right: 3px solid black;
 }
 
 .col-empty:nth-child(6){
-  border-right: 3px solid blue;
+  border-right: 3px solid black;
 }
 
 .col-empty:focus-within {
