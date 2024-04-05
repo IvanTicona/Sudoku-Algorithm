@@ -88,4 +88,17 @@ body {
 
 .col-empty:focus-within {
   background-color: rgba(0, 129, 176, 0.3);
+  animation: blinkCellOnFocus 1s infinite;
+}
+
+@keyframes blinkCellOnFocus {
+  0% {
+    background-color: rgba(0, 129, 176, 0.2);
+  }
+  50% {
+    background-color: rgba(0, 129, 176, 0.4);
+  }
+  100% {
+    background-color: rgba(0, 129, 176, 0.2);
+  }
 }
