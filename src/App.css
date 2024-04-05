@@ -1,5 +1,4 @@
 body {
-  background: rgb(30, 30, 30);
   margin-top: 100px;
   display: flex;
   flex-direction: row;
@@ -31,12 +30,26 @@ body {
   border: 1px solid black;
 }
 
+.col:nth-child(3){
+  border-right: 3px solid blue;
+}
+.col:nth-child(6){
+  border-right: 3px solid blue;
+}
+
 .row{
   height: 80px;
   background-color:rgb(240, 240, 240);
   display: flex;
   justify-content: center;
   border: 1px solid black;
+}
+
+.row:nth-child(3){
+  border-bottom: 3px solid blue;
+}
+.row:nth-child(6){
+  border-bottom: 3px solid blue;
 }
 
 .col-empty{
@@ -48,7 +61,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-border: 1px solid black;
+  border: 1px solid black;
 }
 
 .cell{
@@ -61,6 +74,14 @@ border: 1px solid black;
   outline: none;
   caret-color: transparent;
   cursor: pointer;
+}
+
+.col-empty:nth-child(3){
+  border-right: 3px solid blue;
+}
+
+.col-empty:nth-child(6){
+  border-right: 3px solid blue;
 }
 
 .col-empty:focus-within {
